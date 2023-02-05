@@ -1,11 +1,10 @@
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class UltimateQATest extends PageSetup {
 
@@ -39,6 +38,35 @@ public class UltimateQATest extends PageSetup {
         //  //div[@class='et-pb-contact-message']/p
     }
 
-    }
+    @Test
+    public void testThree() {
+        List<WebElement> listOfQATitles =driver.findElements(By.xpath("//table[@id='htmlTableId']//tr"));
+        Assertions.assertEquals(4, listOfQATitles.size());
+
+        }
+
+     @Test
+     public void testFour() {
+        WebElement dropdownOfCars = driver.findElement(By.xpath("//div[text()='Select an option and validate that it is selected']/select"));
+
+        List<String> listOfCars= new ArrayList<>();
+        listOfCars.add("volvo");
+        listOfCars.add("saab");
+        listOfCars.add("opel");
+        listOfCars.add("audi");
+
+        for(int i = 0 ; i < listOfCars.size(); i++) {
+             dropdownOfCars.click();
+
+             System.out.println("//option{@value='" + listOfCars.get(i) + "'}");
+             WebElement dropdownOfCarsOption = driver.findElement(By.xpath("//option[@value='" + listOfCars.get(i) + "']"));
+             dropdownOfCarsOption.click();
+             Assertions.assertTrue(dropdownOfCarsOption.isSelected());
+             Assertions.assertEquals(listOfCars.get(i), dropdownOfCarsOption.getText().toLowerCase());
+
+         }
+        }
+
+}
 
 
